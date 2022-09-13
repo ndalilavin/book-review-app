@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import UserCSS from "./User.module.css";
-function User({ user, setUser }) {
+function User({ setUser }) {
+    const [input, setInput] = useState("");
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        console.log("onSubmit");
+        setUser(input)
+      };
+
   return (
+    
     <>
       <div className={UserCSS.container}>
-        <div className={UserCSS.form}>
+        <form onSubmit={handleOnSubmit}  className={UserCSS.form}>
           <div className={UserCSS.inputs}>
             <input
               id="user"
               type="text"
               name="user"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
               required
             />
             <span className={UserCSS.highlight}></span>
@@ -19,7 +28,7 @@ function User({ user, setUser }) {
             <label htmlFor="user">Username</label>
           </div>
           <button type="submit">Submit</button>
-        </div>
+        </form>
       </div>
     </>
   );
