@@ -8,19 +8,37 @@ import neutral from "../../face/neutral-face.png";
 import smiling from "../../face/smiling-face-with-heart-eyes.png";
 import image from "../../logo.svg";
 
-function AddReview() {
-  const [rate, setRate] = useState("");
-  const [input, setInput] = useState({
-    rate: "",
-    comment: "",
-  });
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setInput({ ...input, [name]: value });
-  };
+function AddReview({user, onAddComment}) {
+  const [rate, setRate] = useState(0);
+  const [input, setInput] = useState("");
+  // const handleOnChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setInput({ ...input, [name]: value });
+  // };
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log("onSubmit");
+    if (input.comment != null && input.comment.trim() !== "" && rate!==0) {
+      fetch("http://localhost:9292/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rate: rate,
+          comment: input,
+        }),
+      })
+      .then((r) => r.json())
+      .then((newComment) => {
+        onAddComment(newComment);
+        setInput("");
+        setRate(0);
+      });
+    }
+    else{
+      console.log("Error");
+    }
   };
   console.log("rate", rate);
   return (
@@ -55,7 +73,7 @@ function AddReview() {
                 name="comment"
                 placeholder="Comment here..."
                 value={input.comment}
-                onChange={(e) => handleOnChange}
+                onChange={(e) =>  setInput(e.target.value)}
                 required
               />
             </div>

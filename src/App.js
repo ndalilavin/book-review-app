@@ -19,7 +19,7 @@ console.log("user", user);
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Hero />} />
-            <Route exact path="/add-review/:id" element={<AddReview />} />
+            <Route exact path="/add-review/:id" element={<AddReview user= {user}/>} />
           </Routes>
         </>
       )}
