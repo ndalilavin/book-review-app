@@ -7,9 +7,9 @@ function Products() {
  
 
   return (
-    <section>
+    <div className={BooksCSS.book}>
       <Card/>
-    </section>
+    </div>
   );
 }
 export default Products;

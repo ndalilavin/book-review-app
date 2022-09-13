@@ -7,7 +7,7 @@ function Hero() {
 
   return (
     <>
-      <nav className={HeroCSS.navHero}>
+      <div className={HeroCSS.navHero}>
         <header className={HeroCSS.section + " " + HeroCSS.hero}>
           <div className="columns">
          
@@ -21,7 +21,7 @@ function Hero() {
             </div>
           </div>
         </header>
-      </nav>
+      </div>
       <section className={HeroCSS.section}>
         <Books/>
       </section>
