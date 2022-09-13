@@ -1,19 +1,36 @@
 import React, { useState } from "react";
 import UserCSS from "./User.module.css";
 function User({ setUser }) {
-    const [input, setInput] = useState("");
+  const [input, setInput] = useState("");
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
-        console.log("onSubmit");
-        setUser(input)
-      };
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    console.log("onSubmit");
+    console.log(input.length);
+    console.log(e.target.user.value);
+    //not send whitespace to db
+    if (input != null && input.trim() !== "") {
+      // setUser(input)
+      fetch("http://localhost:9292/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: input,
+        }),
+      })
+        .then((r) => r.json())
+        .then((response) => {
+          setUser(response.username);
+        });
+    }
+  };
 
   return (
-    
     <>
       <div className={UserCSS.container}>
-        <form onSubmit={handleOnSubmit}  className={UserCSS.form}>
+        <form onSubmit={handleOnSubmit} className={UserCSS.form}>
           <div className={UserCSS.inputs}>
             <input
               id="user"
