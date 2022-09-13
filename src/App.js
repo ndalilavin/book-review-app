@@ -9,7 +9,11 @@ import User from "./components/input/User";
 
 function App() {
   const [user, setUser] = useState("");
-console.log("user", user);
+  const [reviews, setReviews] = useState([]);
+
+  function handleAddReview(newReview) {
+    setReviews([...reviews, newReview]);
+  }
   return (
     <div className="App">
       {!user ? (
@@ -19,7 +23,7 @@ console.log("user", user);
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Hero />} />
-            <Route exact path="/add-review/:id" element={<AddReview user= {user}/>} />
+            <Route exact path="/add-review/:id" element={<AddReview user= {user} onAddReview={handleAddReview}/>} />
           </Routes>
         </>
       )}

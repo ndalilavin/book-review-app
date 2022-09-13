@@ -8,7 +8,7 @@ import neutral from "../../face/neutral-face.png";
 import smiling from "../../face/smiling-face-with-heart-eyes.png";
 import image from "../../logo.svg";
 
-function AddReview({user, onAddComment}) {
+function AddReview({user, onAddReview}) {
   const [rate, setRate] = useState(0);
   const [input, setInput] = useState("");
   // const handleOnChange = (e) => {
@@ -18,8 +18,8 @@ function AddReview({user, onAddComment}) {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log("onSubmit");
-    if (input.comment != null && input.comment.trim() !== "" && rate!==0) {
-      fetch("http://localhost:9292/messages", {
+    if (input != null && input.trim() !== "" && rate!==0) {
+      fetch("http://localhost:9292/reviews", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,11 +27,14 @@ function AddReview({user, onAddComment}) {
         body: JSON.stringify({
           rate: rate,
           comment: input,
+          author_id: 1,
+          user_id: 1,
         }),
       })
       .then((r) => r.json())
       .then((newComment) => {
-        onAddComment(newComment);
+        onAddReview(newComment);
+        console.log(newComment);
         setInput("");
         setRate(0);
       });
