@@ -36,13 +36,14 @@
     border-radius: 0 10rem;
   
   }
-  .navHero {
+  /* .navHero {
     width: 100%;
     max-height: 100vh;
     min-height: calc(100vh - 0.25em);
-    /* overflow: hidden; */
+    background: var(--lightBlue);
+    overflow: hidden;
     
-  }
+  } */
   
   .section h6{
     color: #545454;

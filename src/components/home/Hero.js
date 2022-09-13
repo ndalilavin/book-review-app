@@ -4,13 +4,11 @@ import React from "react";
 import Books from "../book/Books";
 
 function Hero() {
-
   return (
     <>
       <div className={HeroCSS.navHero}>
         <header className={HeroCSS.section + " " + HeroCSS.hero}>
           <div className="columns">
-         
             <div className="column is-12">
               <div className={HeroCSS.image}>
                 <img
@@ -23,7 +21,7 @@ function Hero() {
         </header>
       </div>
       <section className={HeroCSS.section}>
-        <Books/>
+        <Books />
       </section>
     </>
   );
