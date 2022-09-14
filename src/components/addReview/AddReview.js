@@ -8,7 +8,7 @@ import neutral from "../../face/neutral-face.png";
 import smiling from "../../face/smiling-face-with-heart-eyes.png";
 import image from "../../logo.svg";
 
-function AddReview({user, onAddReview}) {
+function AddReview({ user, reviews, onAddReview }) {
   const [rate, setRate] = useState(0);
   const [input, setInput] = useState("");
   // const handleOnChange = (e) => {
@@ -18,7 +18,7 @@ function AddReview({user, onAddReview}) {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log("onSubmit");
-    if (input != null && input.trim() !== "" && rate!==0) {
+    if (input != null && input.trim() !== "" && rate !== 0) {
       fetch("http://localhost:9292/reviews", {
         method: "POST",
         headers: {
@@ -31,19 +31,34 @@ function AddReview({user, onAddReview}) {
           user_id: 1,
         }),
       })
-      .then((r) => r.json())
-      .then((newComment) => {
-        onAddReview(newComment);
-        console.log(newComment);
-        setInput("");
-        setRate(0);
-      });
-    }
-    else{
+        .then((r) => r.json())
+        .then((newComment) => {
+          onAddReview(newComment);
+          console.log(newComment);
+          setInput("");
+          setRate(0);
+        });
+    } else {
       console.log("Error");
     }
   };
-  console.log("rate", rate);
+
+  const eachReview = reviews.map((review) => (
+      // const createdAt = review.created_at;
+    <div key={review.id}>
+        <div className={AddReviewCSS.comment}>
+          <h1>{user.username}</h1>
+          <div className={AddReviewCSS.newComment}>
+            <p>{review.comment}</p>
+            <p>{new Date(review.created_at).toLocaleTimeString()}</p>
+          </div>
+        </div>
+    </div>
+  ));
+  // const timestamp = new Date(createdAt).toLocaleTimeString();
+
+  console.log("rivew", reviews[1].created_at);
+  // console.log("timestamp", timestamp);
   return (
     <>
       <div className={AddReviewCSS.formContainer}>
@@ -76,13 +91,17 @@ function AddReview({user, onAddReview}) {
                 name="comment"
                 placeholder="Comment here..."
                 value={input.comment}
-                onChange={(e) =>  setInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value)}
                 required
               />
             </div>
           </div>
           <button type="submit">Submit</button>
         </form>
+      <div className={AddReviewCSS.comments}>
+
+        {eachReview}
+        </div>
       </div>
     </>
   );

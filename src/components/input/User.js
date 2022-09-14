@@ -22,7 +22,7 @@ function User({ setUser }) {
       })
         .then((r) => r.json())
         .then((response) => {
-          setUser(response.username);
+          setUser(response);
         });
     }
   };

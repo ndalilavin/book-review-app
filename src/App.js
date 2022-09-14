@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Navbar from "./components/navbar/Navbar";
 import Hero from "./components/home/Hero";
 import AddReview from "./components/addReview/AddReview";
@@ -9,7 +9,14 @@ import User from "./components/input/User";
 
 function App() {
   const [user, setUser] = useState("");
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState({});
+
+  useEffect(() => {
+    fetch("http://localhost:9292/reviews")
+      .then((r) => r.json())
+      .then((reviews) => setReviews(reviews));
+  }, []);
+  console.log("reviews", reviews);
 
   function handleAddReview(newReview) {
     setReviews([...reviews, newReview]);
@@ -23,7 +30,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Hero />} />
-            <Route exact path="/add-review/:id" element={<AddReview user= {user} onAddReview={handleAddReview}/>} />
+            <Route exact path="/add-review/:id" element={<AddReview user={user} reviews= {reviews} onAddReview={handleAddReview}/>} />
           </Routes>
         </>
       )}
