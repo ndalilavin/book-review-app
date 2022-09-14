@@ -10,7 +10,7 @@ Upload Files Page was created and is maintained by **Steve Vinson**
 
 ### Full Preview
 
-https://www.figma.com/file/pnjytNgYRS0naVPADArtKN/Book-Review-App?node-id=1%3A2
+<https://www.figma.com/file/pnjytNgYRS0naVPADArtKN/Book-Review-App?node-id=1%3A2>
 
 ## Description
 
